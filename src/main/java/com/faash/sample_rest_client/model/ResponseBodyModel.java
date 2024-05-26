@@ -2,7 +2,7 @@ package com.faash.sample_rest_client.model;
 
 import java.util.UUID;
 
-public class ResponseModel {
+public class ResponseBodyModel {
     private Boolean success;
 
     private Object result;

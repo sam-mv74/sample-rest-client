@@ -1,7 +1,7 @@
 package com.faash.sample_rest_client.service;
 
 import com.faash.sample_rest_client.dto.PersonDTO;
-import com.faash.sample_rest_client.model.ResponseModel;
+import com.faash.sample_rest_client.model.ResponseBodyModel;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
@@ -16,23 +16,23 @@ public class PersonService {
         restTemplate = new RestTemplate();
     }
 
-    public ResponseEntity<ResponseModel> addPerson(PersonDTO personDTO, String customHeaderValue) {
+    public ResponseEntity<ResponseBodyModel> addPerson(PersonDTO personDTO, String customHeaderValue) {
         String url = baseUrl + "/add-person";
         HttpHeaders headers = new HttpHeaders();
         headers.set("sample", customHeaderValue);
         HttpEntity<PersonDTO> requestEntity = new HttpEntity<>(personDTO, headers);
-        ResponseEntity<ResponseModel> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, ResponseModel.class);
+        ResponseEntity<ResponseBodyModel> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, ResponseBodyModel.class);
         return response;
     }
 
-    public ResponseEntity<ResponseModel> getPersonById(Integer id) {
+    public ResponseEntity<ResponseBodyModel> getPersonById(Integer id) {
         String url = baseUrl + "/get-person/" + id;
-        ResponseEntity<ResponseModel> response;
+        ResponseEntity<ResponseBodyModel> response;
         try {
-            response = restTemplate.getForEntity(url, ResponseModel.class);
+            response = restTemplate.getForEntity(url, ResponseBodyModel.class);
             return response;
         }catch (HttpServerErrorException e ){
-            ResponseModel responseModel = new ResponseModel();
+            ResponseBodyModel responseModel = new ResponseBodyModel();
             responseModel.setSuccess(false);
             String message = e.getStatusCode().value() == 400 ? "Bad Request" : "Internal Server Error";
             responseModel.setMessage(message);

@@ -1,7 +1,7 @@
 package com.faash.sample_rest_client.controller;
 
 import com.faash.sample_rest_client.dto.PersonDTO;
-import com.faash.sample_rest_client.model.ResponseModel;
+import com.faash.sample_rest_client.model.ResponseBodyModel;
 import com.faash.sample_rest_client.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class PersonController {
     @Operation(
             summary = "Add a Person ",
             description = "adds a person by required fields , by calling person server APIs")
-    public ResponseEntity<ResponseModel> addPerson(@RequestHeader(name = "sample") String header, @RequestBody PersonDTO personDTO) {
+    public ResponseEntity<ResponseBodyModel> addPerson(@RequestHeader(name = "sample") String header, @RequestBody PersonDTO personDTO) {
         return personService.addPerson(personDTO, header);
     }
 
@@ -30,7 +30,7 @@ public class PersonController {
     @Operation(
             summary = "Retrieve a Person ",
             description = "retrieves a person by required fields , by calling person server APIs")
-    public ResponseEntity<ResponseModel> getPerson(@PathVariable Integer personId) {
+    public ResponseEntity<ResponseBodyModel> getPerson(@PathVariable Integer personId) {
         return personService.getPersonById(personId);
     }
 }
