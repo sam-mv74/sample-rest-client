@@ -1,7 +1,8 @@
 package com.faash.sample_rest_client.controller;
 
 import com.faash.sample_rest_client.dto.PersonDTO;
-import com.faash.sample_rest_client.model.ResponseBodyModel;
+import com.faash.sample_rest_client.http.HttpHeader;
+import com.faash.sample_rest_client.http.ResponseBodyModel;
 import com.faash.sample_rest_client.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,19 +19,19 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping("/add-person")
     @Operation(
             summary = "Add a Person ",
             description = "adds a person by required fields , by calling person server APIs")
-    public ResponseEntity<ResponseBodyModel> addPerson(@RequestHeader(name = "sample") String header, @RequestBody PersonDTO personDTO) {
+    @PostMapping("/add-person")
+    public ResponseEntity<ResponseBodyModel<Void>> addPerson(@RequestHeader(name = HttpHeader.SAMPLE) String header, @RequestBody PersonDTO personDTO) {
         return personService.addPerson(personDTO, header);
     }
 
-    @GetMapping("/get-person/{personId}")
     @Operation(
             summary = "Retrieve a Person ",
             description = "retrieves a person by required fields , by calling person server APIs")
-    public ResponseEntity<ResponseBodyModel> getPerson(@PathVariable Integer personId) {
+    @GetMapping("/get-person/{personId}")
+    public ResponseEntity<ResponseBodyModel<PersonDTO>> getPerson(@PathVariable Integer personId) {
         return personService.getPersonById(personId);
     }
 }

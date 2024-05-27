@@ -1,11 +1,17 @@
 package com.faash.sample_rest_client.dto;
 
-public class PersonDTO {
-    private String firstname;
-    private String lastname;
-    private String phoneNumber;
-    private String email;
+import jakarta.validation.constraints.NotBlank;
 
+public class PersonDTO {
+    @NotBlank
+    private String firstname;
+
+    @NotBlank
+    private String lastname;
+
+    private String phoneNumber;
+
+    private String email;
 
     public PersonDTO() {
     }
